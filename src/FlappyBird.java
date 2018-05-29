@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PShape;
 
 /**
  * @author Baumgarntner Louis, Brägger Luca, Kaufmann Tobias
@@ -14,6 +15,7 @@ public class FlappyBird extends PApplet {
     int birdXPosition;
     int birdYPosition;
     int birdWidth = 50;
+    PShape image;
 
     // load different levels
     Level level1 = new Level(255, 5, 10, 10, 3, this);
@@ -36,12 +38,16 @@ public class FlappyBird extends PApplet {
         noStroke();
         birdXPosition = width / 4;
         birdYPosition = height / 3;
+
+        //load image 
+        //image = loadShape("src/thumb.svg"); 
+
     }
 
 
     public void draw() {
         background(level1.getBackgroundColor());
-        rect(birdXPosition, birdYPosition, birdWidth, birdWidth);
+        shape (image, birdXPosition, birdYPosition);
 
         // paint obstacles
         level1.paintObstacles();
