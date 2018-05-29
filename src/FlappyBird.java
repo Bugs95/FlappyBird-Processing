@@ -13,10 +13,12 @@ public class FlappyBird extends PApplet {
     // global variables
     int birdXPosition;
     int birdYPosition;
+    int birdWidth = 50;
 
     // load different levels
-    Level level1 = new Level(123, 5,10, 5);
-
+    Level level1 = new Level(255, 5, 10, 10, 3, this);
+    // TODO more levels
+    Level level77 = new Level(243, 10, 15, 30, 10, this);
 
     public static void main(String[] args) {
         PApplet.main("FlappyBird", args);
@@ -24,29 +26,56 @@ public class FlappyBird extends PApplet {
 
 
     public void settings() {
-        fullScreen();
+        //fullScreen();
+        size(1200, 720);
+        // TODO Interface and level system
     }
 
 
     public void setup() {
         noStroke();
-        birdXPosition = width/3;
-        birdYPosition = height/3;
+        birdXPosition = width / 4;
+        birdYPosition = height / 3;
     }
 
 
     public void draw() {
         background(level1.getBackgroundColor());
-        rect(birdXPosition, birdYPosition, 50, 50);
-        // TODO
-        // level1.getObstacles().forEach(Obstacle::paint);
+        rect(birdXPosition, birdYPosition, birdWidth, birdWidth);
 
+        // paint obstacles
+        level1.paintObstacles();
+        level1.moveObstacles();
+
+        // move bird up if any key is pressed
         if (keyPressed) {
             birdYPosition -= level1.getUpSpeed();
         }
         birdYPosition += level1.getFallingSpeed();
         checkBoundary();
+
+        // check for collision with an object
+        collisionDetection();
     }
+
+
+    /**
+     * check if Flappy Bird collided with an object
+     */
+    private void collisionDetection() {
+        for (int i = 0; i < level1.getObstacles().size(); i++) {
+            Obstacle obstacle = level1.getObstacles().get(i);
+            if ((birdXPosition + birdWidth) > obstacle.getxPos() &&
+                    birdXPosition <  (obstacle.getxPos() + obstacle.getLength()) &&
+                    (birdYPosition + birdWidth) > obstacle.getyPos() &&
+                    birdYPosition < (obstacle.getyPos() + obstacle.getLength())){
+
+                // TODO colision effect
+                System.out.println("hahaha!");
+            }
+        }
+    }
+
 
     /**
      * Checks if the bird is outside the visible area.
