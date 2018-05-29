@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PShape;
 
 /**
@@ -15,7 +16,10 @@ public class FlappyBird extends PApplet {
     int birdXPosition;
     int birdYPosition;
     int birdWidth = 50;
-    PShape image;
+    //PShape image;
+    int numFrames = 19;
+    int currentFrame = 0;
+    PImage[] images = new PImage[numFrames];
 
     // load different levels
     Level level1 = new Level(255, 5, 10, 10, 3, this);
@@ -29,7 +33,7 @@ public class FlappyBird extends PApplet {
 
     public void settings() {
         //fullScreen();
-        size(1200, 720);
+        size(1200, 900);
         // TODO Interface and level system
     }
 
@@ -40,14 +44,39 @@ public class FlappyBird extends PApplet {
         birdYPosition = height / 3;
 
         //load image 
-        //image = loadShape("src/thumb.svg"); 
+        frameRate(40);
+
+        images[0] = loadImage("src/Animation/01.png");
+        images[1] = loadImage("src/Animation/02.png");
+        images[2] = loadImage("src/Animation/03.png");
+        images[3] = loadImage("src/Animation/04.png");
+        images[4] = loadImage("src/Animation/05.png");
+        images[5] = loadImage("src/Animation/06.png");
+        images[6] = loadImage("src/Animation/07.png");
+        images[7] = loadImage("src/Animation/08.png");
+        images[8] = loadImage("src/Animation/09.png");
+        images[9] = loadImage("src/Animation/10.png");
+        images[10] = loadImage("src/Animation/11.png");
+        images[11] = loadImage("src/Animation/12.png");
+        images[12] = loadImage("src/Animation/13.png");
+        images[13] = loadImage("src/Animation/14.png");
+        images[14] = loadImage("src/Animation/15.png");
+        images[15] = loadImage("src/Animation/16.png");
+        images[16] = loadImage("src/Animation/17.png");
+        images[17] = loadImage("src/Animation/18.png");
+        images[18] = loadImage("src/Animation/19.png");
 
     }
 
 
     public void draw() {
         background(level1.getBackgroundColor());
-        shape (image, birdXPosition, birdYPosition);
+        currentFrame = currentFrame + 1;
+        if (currentFrame >= numFrames) {
+            currentFrame = 0;
+        }
+        image(images[currentFrame], birdXPosition, birdYPosition);
+
 
         // paint obstacles
         level1.paintObstacles();
@@ -64,6 +93,7 @@ public class FlappyBird extends PApplet {
         collisionDetection();
     }
 
+    /*
 
     /**
      * check if Flappy Bird collided with an object
