@@ -10,10 +10,35 @@ public class Obstacle  {
     private int red, green, blue;
     private int speed;
     PApplet screen;
-    Random rand = new Random();
-    String imagePath = "data/Backgrounds/obstacle.png";
+    Random rand;
+    String imagePath;
     PImage obstacle;
 
+    public Obstacle(PApplet screen, int speed) {
+        this.screen = screen;
+        String imagePath = new String("data/Backgrounds/obstacle.png");
+        obstacle = screen.loadImage(imagePath);
+        length = 50;
+        rand = new Random();
+        this.xPos = rand.nextInt(5000) + screen.width;
+        this.yPos = rand.nextInt(screen.height - 100) + 50;
+        this.speed = speed;
+        }
+
+    /**
+     * Paint object
+     */
+    public void paint() {
+        screen.image(obstacle, xPos, yPos, length, length);
+        }
+
+    public void move() {
+        if (xPos > -20) {
+            this.xPos -= speed;
+        } else{
+            // TODO remove Object from ArrayList
+        }
+    }
 
     public int getLength() {
         return length;
@@ -71,32 +96,35 @@ public class Obstacle  {
         this.speed = speed;
     }
 
-    public Obstacle(PApplet p, int speed) {
-        screen= p;
-
-        //obstacle = loadImage(imagePath);
-        this.length = 30;
-        this.xPos = rand.nextInt(5000) + 700;
-        this.yPos = rand.nextInt(700) + 10;
-        this.red = rand.nextInt(200) + 56;
-        this.green = rand.nextInt(200) + 56;
-        this.blue = rand.nextInt(200) + 56;
-        this.speed = speed;
-        }
-
-    /**
-     * Paint object
-     */
-    public void paint() {
-        screen.fill(red, green, blue);
-        screen.rect(xPos, yPos, length, length);
+    public PApplet getScreen() {
+        return screen;
     }
 
-    public void move() {
-        if (xPos > -20) {
-            this.xPos -= speed;
-        } else{
-            // TODO remove Object from ArrayList
-        }
+    public void setScreen(PApplet screen) {
+        this.screen = screen;
+    }
+
+    public Random getRand() {
+        return rand;
+    }
+
+    public void setRand(Random rand) {
+        this.rand = rand;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public PImage getObstacle() {
+        return obstacle;
+    }
+
+    public void setObstacle(PImage obstacle) {
+        this.obstacle = obstacle;
     }
 }

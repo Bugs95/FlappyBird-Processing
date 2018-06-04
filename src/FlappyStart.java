@@ -13,12 +13,7 @@ public class FlappyStart extends PApplet {
     // global variables
     BackgroundScene background;
     Flappy flappy;
-
-
-    // load different levels
-    Level level1 = new Level(255, 5, 10, 10, 3, this);
-    // TODO more levels
-    Level level77 = new Level(243, 10, 15, 30, 10, this);
+    Level level1;
 
     public static void main(String[] args) {
         PApplet.main("FlappyStart", args);
@@ -26,48 +21,51 @@ public class FlappyStart extends PApplet {
 
 
     public void settings() {
-        //fullScreen();
-        size(1200, 720);
-        // TODO Interface and level system
+        fullScreen();
+        //size(1200, 720);
     }
 
 
     public void setup() {
         noStroke();
-//        background = new BackgroundScene();
-        flappy = new Flappy();
+        level1 = new Level(255, 10, 30, 50, 10, this);
 
-
+        // schwer
+        //level1 = new Level(255, 20, 50, 100, 20, this);
+        background = new BackgroundScene(this);
+        flappy = new Flappy(this);
     }
 
 
     public void draw() {
-        background(level1.getBackgroundColor());
-        rect(flappy.getxPos(), flappy.getyPos(), flappy.getBirdWidth(), flappy.getBirdWidth());
+        // paint background
+        background.draw();
 
-        //LifeBar
+        // paint flappy
+        flappy.draw();
+
+        // paint life bar
         fill(255, 0, 0);
-        rect(flappy.getxPos(), flappy.getyPos() + 100, flappy.getLife(), 50);
-
-        background.drawing();
-        background.act();
-
-        flappy.drawing();
-        flappy.act();
-
-        fill(255, 0, 0);
-        rect(flappy.getxPos() - 50, flappy.getyPos() + 150, flappy.getLife(), 50);
+        if (flappy.getLife() > 0) {
+            rect(flappy.getxPos(), flappy.getyPos() + 100, flappy.getLife() / 2, 25);
+        }
 
         // paint obstacles
         level1.paintObstacles();
         level1.moveObstacles();
 
         // move bird up if any key is pressed
-        if (keyPressed) {
-            flappy.setyPos(flappy.getyPos() - level1.getUpSpeed());
+        if (flappy.life > 0) {
+            if (keyPressed) {
+                flappy.setyPos(flappy.getyPos() - level1.getUpSpeed());
+            }
+            flappy.setyPos(flappy.getyPos() + level1.getFallingSpeed());
+            checkBoundary();
+        } else {
+            flappy.setyPos(flappy.getyPos() + 30);
+            flappy.fall();
         }
-        flappy.setyPos(flappy.getyPos() + level1.getFallingSpeed());
-        checkBoundary();
+
 
         // check for collision with an object
         collisionDetection();
@@ -80,19 +78,16 @@ public class FlappyStart extends PApplet {
     private void collisionDetection() {
         for (int i = 0; i < level1.getObstacles().size(); i++) {
             Obstacle obstacle = level1.getObstacles().get(i);
-            if ((flappy.getxPos() + flappy.getBirdWidth()) > obstacle.getxPos() &&
+            if ((flappy.getxPos() + flappy.getFlappySize()) > obstacle.getxPos() &&
                     flappy.getxPos() < (obstacle.getxPos() + obstacle.getLength()) &&
-                    (flappy.getyPos() + flappy.getBirdWidth()) > obstacle.getyPos() &&
+                    (flappy.getyPos() + flappy.getFlappySize()) > obstacle.getyPos() &&
                     flappy.getyPos() < (obstacle.getyPos() + obstacle.getLength())) {
-
-                System.out.println("hahaha!");
-                textSize(100);
-                text("AAAAAAHHHHH", random(20, 200), random(20, 200));
+                textSize(50);
+                text("AAAAAAHHHHH", flappy.getxPos(), flappy.getyPos());
                 fill(0, 20, 20);
-                text("Du bist Scheisse!!", random(50, 300), random(500, 300));
                 flappy.setLife(flappy.getLife() - 10);
-                if (flappy.getLife() == 0) {
-                    exit();
+                if (flappy.getLife() <= 0) {
+                    endGame();
                 }
             }
         }
@@ -100,7 +95,7 @@ public class FlappyStart extends PApplet {
 
 
     /**
-     * Checks if the bird is outside the visible area.
+     * Checks if flappy is outside the visible area.
      * If so the bird reenters on the other side.
      */
     public void checkBoundary() {
@@ -109,5 +104,9 @@ public class FlappyStart extends PApplet {
         } else if (flappy.getyPos() > height) {
             flappy.setyPos(0);
         }
+    }
+
+    public void endGame() {
+        text("Du bist Scheisse!!", random(50, 300), random(500, 300));
     }
 }
