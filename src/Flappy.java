@@ -57,7 +57,11 @@ public class Flappy {
 
 
     public void fall() {
-        setFlappySize(getFlappySize() - 5);
+        if (getFlappySize() > 5) {
+            setFlappySize(getFlappySize() - 5);
+        } else {
+            screen.stop();
+        }
     }
 
     public int getFlappySize() {

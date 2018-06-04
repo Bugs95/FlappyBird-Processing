@@ -3,7 +3,7 @@ import processing.core.PImage;
 
 import java.util.Random;
 
-public class Obstacle  {
+public class Obstacle {
     private int length;
     private int xPos;
     private int yPos;
@@ -23,20 +23,21 @@ public class Obstacle  {
         this.xPos = rand.nextInt(5000) + screen.width;
         this.yPos = rand.nextInt(screen.height - 100) + 50;
         this.speed = speed;
-        }
+    }
 
     /**
      * Paint object
      */
     public void paint() {
         screen.image(obstacle, xPos, yPos, length, length);
-        }
+    }
 
+    /**
+     * move object to the left
+     */
     public void move() {
         if (xPos > -20) {
             this.xPos -= speed;
-        } else{
-            // TODO remove Object from ArrayList
         }
     }
 
