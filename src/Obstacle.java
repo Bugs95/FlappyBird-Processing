@@ -3,6 +3,9 @@ import processing.core.PImage;
 
 import java.util.Random;
 
+/**
+ * this class is used generate obstacles
+ */
 public class Obstacle {
     private int length;
     private int xPos;

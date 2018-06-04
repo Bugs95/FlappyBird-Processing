@@ -3,6 +3,9 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * this class is used to instanziate new levels
+ */
 public class Level {
     private int backgroundColor;
     private int fallingSpeed;

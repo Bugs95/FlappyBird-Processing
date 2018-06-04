@@ -1,7 +1,9 @@
 import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PImage;
 
+/**
+ * this class provides flappy, the game's figure
+ */
 public class Flappy {
     PApplet screen;
     String image_path[];

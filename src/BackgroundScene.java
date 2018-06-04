@@ -1,6 +1,9 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * this class provides the game's background
+ */
 class BackgroundScene {
     PApplet screen;
     String image_path = new String("data/Backgrounds/backgroundScene.png");
