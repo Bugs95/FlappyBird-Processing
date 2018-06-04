@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 import java.util.Random;
 
@@ -10,6 +11,8 @@ public class Obstacle  {
     private int speed;
     PApplet screen;
     Random rand = new Random();
+    String imagePath = "data/Backgrounds/obstacle.png";
+    PImage obstacle;
 
 
     public int getLength() {
@@ -71,6 +74,7 @@ public class Obstacle  {
     public Obstacle(PApplet p, int speed) {
         screen= p;
 
+        //obstacle = loadImage(imagePath);
         this.length = 30;
         this.xPos = rand.nextInt(5000) + 700;
         this.yPos = rand.nextInt(700) + 10;
