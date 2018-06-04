@@ -158,7 +158,7 @@ public class FlappyStart extends PApplet {
             flappy.setLife(flappy.getLife() + 500);
             counter = 0;
             background.setSpeed(12);
-        } else if (currentLevel == level[9] && counter > (5000 + this.width) / 20) {
+        } else if (currentLevel == level[9] && counter > (5000 + this.width) / 30) {
             fill(0, 20, 20);
             textSize(200);
             text("Sieg", this.width / 2, this.height / 2);
