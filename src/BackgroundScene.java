@@ -25,6 +25,7 @@ class BackgroundScene {
         ground1_x = 0;
         ground1_y = 0;
         speed = 2;
+
     }
 
     void draw(){
@@ -43,4 +44,11 @@ class BackgroundScene {
         }
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
 }

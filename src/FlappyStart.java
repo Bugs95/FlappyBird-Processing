@@ -5,9 +5,9 @@ import processing.core.PApplet;
  */
 
 /**
- * This application is a Flappy Bird game where the player navigates a bird through different levels.
- * You can move the bird upwards by pressing any key.
- * Avoid collision with obstacles and have fun.
+ * This application is a an adaption to the flappy bird game where the player navigates a bird through different levels.
+ * You can move flappy upwards by pressing any key.
+ * Avoid collision with obstacles and have fun mastering all levels.
  */
 public class FlappyStart extends PApplet {
     // global variables
@@ -30,14 +30,29 @@ public class FlappyStart extends PApplet {
 
     public void setup() {
         noStroke();
-        level = new Level[3];
+        level = new Level[10];
 
-        // einfach
-        level[0] = new Level(255, 10, 30, 50, 10, this);
-        // mittel
-        level[1] = new Level(255, 15, 40, 70, 15, this);
-        // schwer
-        level[2] = new Level(255, 20, 50, 100, 20, this);
+        level[0] = new Level(255, 10, 20, 40, 10, this);
+        level[1] = new Level(255, 12, 25, 50, 12, this);
+        level[2] = new Level(255, 15, 30, 60, 15, this);
+        level[3] = new Level(255, 20, 35, 70, 17, this);
+        level[4] = new Level(255, 24, 40, 80, 20, this);
+        level[5] = new Level(255, 27, 45, 85, 22, this);
+        level[6] = new Level(255, 30, 50, 90, 24, this);
+        level[7] = new Level(255, 35, 60, 95, 26, this);
+        level[8] = new Level(255, 40, 70, 100, 28, this);
+        level[9] = new Level(255, 45, 80, 110, 30, this);
+
+//        level[0] = new Level(255, 10, 20, 5, 10, this);
+//        level[1] = new Level(255, 10, 20, 5, 12, this);
+//        level[2] = new Level(255, 10, 20, 5, 15, this);
+//        level[3] = new Level(255, 10, 20, 5, 17, this);
+//        level[4] = new Level(255, 10, 20, 5, 20, this);
+//        level[5] = new Level(255, 10, 20, 5, 22, this);
+//        level[6] = new Level(255, 10, 20, 5, 24, this);
+//        level[7] = new Level(255, 10, 20, 5, 26, this);
+//        level[8] = new Level(255, 10, 20, 5, 28, this);
+//        level[9] = new Level(255, 10, 20, 5, 30, this);
 
         background = new BackgroundScene(this);
         flappy = new Flappy(this);
@@ -56,7 +71,7 @@ public class FlappyStart extends PApplet {
         // paint life bar
         fill(255, 0, 0);
         if (flappy.getLife() > 0) {
-            rect(flappy.getxPos(), flappy.getyPos() + 100, flappy.getLife() / 2, 25);
+            rect(flappy.getxPos() + 30, flappy.getyPos() + 100, flappy.getLife() / 3, 20);
         }
 
         // paint level text
@@ -84,23 +99,69 @@ public class FlappyStart extends PApplet {
         levelControl();
     }
 
-
+    /**
+     * this method is used to control the selection and initialization of all levels
+     */
     private void levelControl() {
         counter++;
         if (currentLevel == level[0] && counter > (5000 + this.width) / 10) {
             currentLevel = level[1];
             levelText = "Level 2";
-            flappy.setLife(flappy.getLife() + 300);
+            flappy.setLife(flappy.getLife() + 200);
             counter = 0;
-        } else if (currentLevel == level[1] && counter > (5000 + this.width) / 15) {
+            background.setSpeed(3);
+        } else if (currentLevel == level[1] && counter > (5000 + this.width) / 12) {
             currentLevel = level[2];
             levelText = "Level 3";
+            flappy.setLife(flappy.getLife() + 250);
+            counter = 0;
+            background.setSpeed(4);
+        } else if (currentLevel == level[2] && counter > (5000 + this.width) / 15) {
+            currentLevel = level[3];
+            levelText = "Level 4";
             flappy.setLife(flappy.getLife() + 300);
             counter = 0;
-        } else if (currentLevel == level[2] && counter > (5000 + this.width) / 20) {
+            background.setSpeed(5);
+        } else if (currentLevel == level[3] && counter > (5000 + this.width) / 17) {
+            currentLevel = level[4];
+            levelText = "Level 5";
+            flappy.setLife(flappy.getLife() + 350);
+            counter = 0;
+            background.setSpeed(6);
+        } else if (currentLevel == level[4] && counter > (5000 + this.width) / 20) {
+            currentLevel = level[5];
+            levelText = "Level 6";
+            flappy.setLife(flappy.getLife() + 400);
+            counter = 0;
+            background.setSpeed(7);
+        } else if (currentLevel == level[5] && counter > (5000 + this.width) / 22) {
+            currentLevel = level[6];
+            levelText = "Level 7";
+            flappy.setLife(flappy.getLife() + 400);
+            counter = 0;
+            background.setSpeed(8);
+        } else if (currentLevel == level[6] && counter > (5000 + this.width) / 24) {
+            currentLevel = level[7];
+            levelText = "Level 8";
+            flappy.setLife(flappy.getLife() + 450);
+            counter = 0;
+            background.setSpeed(9);
+        } else if (currentLevel == level[7] && counter > (5000 + this.width) / 26) {
+            currentLevel = level[8];
+            levelText = "Level 9";
+            flappy.setLife(flappy.getLife() + 450);
+            counter = 0;
+            background.setSpeed(10);
+        } else if (currentLevel == level[8] && counter > (5000 + this.width) / 28) {
+            currentLevel = level[9];
+            levelText = "Level 10";
+            flappy.setLife(flappy.getLife() + 500);
+            counter = 0;
+            background.setSpeed(12);
+        } else if (currentLevel == level[9] && counter > (5000 + this.width) / 20) {
+            fill(0, 20, 20);
             textSize(200);
             text("Sieg", this.width / 2, this.height / 2);
-            fill(0, 20, 20);
         }
     }
 
